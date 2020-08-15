@@ -1,0 +1,92 @@
+# Rakuten.tv Steps
+
+## Installation and usage
+
+1. `cd rakuten-tv`
+2. `yarn install or npm install`
+3. `yarn start or npm start`
+4. Open localhost.rakuten.tv in your browser
+
+If you find any issue opening localhost.rakuten.tv, go to the troubleshooting section.
+
+## Deployment
+1. run `npm run deploy`
+2. build is located in build/ folder
+
+## About
+
+Project made using webpack, react, redux, and styled-components.
+
+### Complete Project structure: 
+```
+|-- node_modules/
+|-- public/html                         --> DOM entry point
+|-- src/
+    |--api/                             --> Api connection (Used Classes to show inheritance)
+        |--ApiGateway.js                --> Api Parent class (implements fetchapi)
+        |--Streaming.js                 --> Streaming api implementation
+        |--Movie.js                     --> Movie api implementation
+        |--List.js                      --> List api implementation
+    |--components/                      --> components used
+    |--globalstyles/                    --> App theme
+    |--pages/                           --> pages Container
+    |--redux/                           --> All related to redux (store, sagas, actions, actiontypes, reducers) 
+        |--store.js                     --> Redux store, used saga middlewares to listen actions
+        |--sagas.js                     --> Sagas entry point
+        |--actionTypes.js               --> action types
+        |--rootReducer.js               --> reducers entry point
+        |--list/                        --> list reducers, sagas, actions and selectors
+        |--movie/                       --> movie reducers, sagas, actions and selectors
+        |--streaming/                   --> streaming reducers, sagas, actions and selectors        
+    |--routes/                          --> Project routes
+    |--testUtils/                       --> Test suite adapted to the project (For Testing purposes)
+        |--TestRouter.js                --> Router Component for testing purposes
+        |--triggerActions.js           --> Module Pattern that defines a data structure to handle actions
+        |--mockStore                   --> Store implementation for testing purposes
+        |--actionWatcherMiddleware.js  --> middleware who record actions triggered
+        |--__mocks__                   --> Mocks
+        |--testRenderer                --> React testing library wrapper implementation
+    |--utils/fetch-api                 --> FetchApi implementation (Promise race between a timeout and fetch api. To trigger timeouts)
+    |--App.js                          --> Load provider and theme from styled components and App.styled
+    |--App.styled.js                   --> Global styles
+    |--constants                       --> constants used in the app
+    |--index.js                        --> js entry point
+    |--setupTests.js                   --> necessary for react testing library
+   ``` 
+   
+### Introduction
+  Webpack renders index.js as entry point. Then we add provider, theme, and routes (routes/index.js) in App.js.
+  
+  To start working cleaner and expecting a good code quality, I added:
+    1. eslint.
+    2. prettier.
+    3. husky: prepush mode: triggers coverage.
+              prepush mode: triggers eslint.
+    4. Coverage: 80% for most of measures except branches which has 70%.
+  
+### ApiBuilder
+  To show up inheritance in javascript, I created ApiGateway as parent Class in api folder. And Movie, Streaming, and List inherits from it.
+  
+### TestUtils
+  To use react testing library wrapped with our mocked provider and router I created testRenderer that renders a component with all we should need to check if the app is executing the expected flow.
+  
+  Created actionWatcherMiddleware to use in our redux tests to create a queue of the actions executed to check if the flow of the app is working on redux side.
+  
+  Used mocks to simulate real cases in our tests.
+  
+  Added in actionWatcherMiddleware a module pattern located in triggerActions, that helps me to handle actions in tests easier.
+
+
+## Crossbrowser
+Added core-js for cross-browser functionality.
+
+## Troubleshooting
+  
+  ### CORS
+  
+  *WorkAround Solution.*
+   1. Install any CORS access app, in chrome could be: https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=es
+   2. Add https://gizmo.rakuten.tv/ to the whitelist
+  
+  
+  
