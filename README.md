@@ -5,7 +5,7 @@
 1. `cd rakuten-tv`
 2. `yarn install or npm install`
 3. `yarn start or npm start`
-4. Open localhost.rakuten.tv in your browser
+4. Open localhost.rakuten.tv in your browser or http://0.0.0.0
 
 If you find any issue opening localhost.rakuten.tv, go to the troubleshooting section.
 
